@@ -89,7 +89,7 @@ Figure.Image = "rbxassetid://8118235568"
 
 -- Scripts:
 
-local function VKJPNDM_fake_script() -- BOBGUI.BOB 
+local function SSGFQER_fake_script() -- BOBGUI.BOB 
 	local script = Instance.new('LocalScript', BOBGUI)
 
 	local player = game.Players.LocalPlayer
@@ -182,8 +182,6 @@ local function VKJPNDM_fake_script() -- BOBGUI.BOB
 	
 		end)
 	end
-	
-	local turboValue = script.Parent.Turbo
 	
 	local portalDebounce = false
 	
@@ -311,7 +309,7 @@ local function VKJPNDM_fake_script() -- BOBGUI.BOB
 							
 							local distance = math.abs(portal.Position.Magnitude - portalToTeleport.Position.Magnitude)
 							
-							if turboValue.Value == true then
+							if script.Parent:GetAttribute("Turbo") == true then
 								
 								
 								char:PivotTo(portalToTeleport.CFrame)
@@ -351,7 +349,11 @@ local function VKJPNDM_fake_script() -- BOBGUI.BOB
 		sellerPromt.Triggered:Connect(function(_)
 			Gun()
 		end)
-	
+		
+		repeat
+			wait(0.1)
+		until char ~= nil
+		
 		seller.CFrame = char:GetPivot() * CFrame.new(0,0,-5) * CFrame.fromOrientation(0,math.rad(180),0)
 	
 	
@@ -362,24 +364,24 @@ local function VKJPNDM_fake_script() -- BOBGUI.BOB
 	
 	Seller()
 end
-coroutine.wrap(VKJPNDM_fake_script)()
-local function SBPON_fake_script() -- TurboButton.LocalScript 
+coroutine.wrap(SSGFQER_fake_script)()
+local function ITAFNDU_fake_script() -- TurboButton.LocalScript 
 	local script = Instance.new('LocalScript', TurboButton)
 
-	local turboValue = script.Parent.Parent.Turbo
-	
 	script.Parent.MouseButton1Click:Connect(function()
-		if turboValue.Value == true then
-			turboValue.Value = false
+		local isTurbo = script.Parent.Parent:GetAttribute("Turbo")
+		
+		if isTurbo == true then
+			script.Parent.Parent:SetAttribute("Turbo", false)
 			script.Parent.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 		else
-			turboValue.Value = true
+			script.Parent.Parent:SetAttribute("Turbo", true)
 			script.Parent.BackgroundColor3 = Color3.fromRGB(21, 255, 21)
 		end
 	end)
 end
-coroutine.wrap(SBPON_fake_script)()
-local function KFOL_fake_script() -- Figure.LocalScript 
+coroutine.wrap(ITAFNDU_fake_script)()
+local function MUUK_fake_script() -- Figure.LocalScript 
 	local script = Instance.new('LocalScript', Figure)
 
 	script.Parent.MouseButton1Click:Connect(function()
@@ -405,4 +407,4 @@ local function KFOL_fake_script() -- Figure.LocalScript
 		end
 	end)
 end
-coroutine.wrap(KFOL_fake_script)()
+coroutine.wrap(MUUK_fake_script)()
