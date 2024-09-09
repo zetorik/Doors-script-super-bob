@@ -10,6 +10,7 @@ local TurboButton = Instance.new("TextButton")
 local PortalType = Instance.new("TextLabel")
 local ChangePortal = Instance.new("TextButton")
 local Figure = Instance.new("ImageButton")
+local Speed = Instance.new("TextBox")
 
 --Properties:
 
@@ -40,7 +41,7 @@ TurboButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 TurboButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TurboButton.BorderSizePixel = 0
 TurboButton.Position = UDim2.new(0.145951033, 0, 0.373956591, 0)
-TurboButton.Size = UDim2.new(0, 79, 0, 39)
+TurboButton.Size = UDim2.new(0.0737628415, 0, 0.0651085153, 0)
 TurboButton.Font = Enum.Font.Unknown
 TurboButton.Text = "TURBO"
 TurboButton.TextColor3 = Color3.fromRGB(0, 0, 0)
@@ -54,7 +55,7 @@ PortalType.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 PortalType.BorderColor3 = Color3.fromRGB(0, 0, 0)
 PortalType.BorderSizePixel = 0
 PortalType.Position = UDim2.new(0.806722701, 0, 0.634390652, 0)
-PortalType.Size = UDim2.new(0, 193, 0, 56)
+PortalType.Size = UDim2.new(0.18020542, 0, 0.0934891477, 0)
 PortalType.Visible = false
 PortalType.Font = Enum.Font.SourceSans
 PortalType.Text = "portal_type = "
@@ -69,7 +70,7 @@ ChangePortal.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 ChangePortal.BorderColor3 = Color3.fromRGB(0, 0, 0)
 ChangePortal.BorderSizePixel = 0
 ChangePortal.Position = UDim2.new(0.83286649, 0, 0.550918221, 0)
-ChangePortal.Size = UDim2.new(0, 165, 0, 50)
+ChangePortal.Size = UDim2.new(0.15406163, 0, 0.0834724531, 0)
 ChangePortal.Visible = false
 ChangePortal.Font = Enum.Font.SourceSans
 ChangePortal.Text = "Change portal"
@@ -87,9 +88,23 @@ Figure.Position = UDim2.new(0.094929494, 0, 0.485809684, 0)
 Figure.Size = UDim2.new(0.0574387945, 0, 0.105175294, 0)
 Figure.Image = "rbxassetid://8118235568"
 
+Speed.Name = "Speed"
+Speed.Parent = BOBGUI
+Speed.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Speed.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Speed.BorderSizePixel = 0
+Speed.Position = UDim2.new(0.235294119, 0, 0.373956591, 0)
+Speed.Size = UDim2.new(0.0700280145, 0, 0.0651085153, 0)
+Speed.Font = Enum.Font.SourceSansItalic
+Speed.Text = "1"
+Speed.TextColor3 = Color3.fromRGB(0, 0, 0)
+Speed.TextScaled = true
+Speed.TextSize = 14.000
+Speed.TextWrapped = true
+
 -- Scripts:
 
-local function SSGFQER_fake_script() -- BOBGUI.BOB 
+local function MHBXCIB_fake_script() -- BOBGUI.BOB 
 	local script = Instance.new('LocalScript', BOBGUI)
 
 	local player = game.Players.LocalPlayer
@@ -100,7 +115,7 @@ local function SSGFQER_fake_script() -- BOBGUI.BOB
 	
 	local function Gun()
 		local s = 1000
-		local v = 300
+		local v = 150
 		
 		local gun = Instance.new("Tool", player.Backpack)
 		gun.Grip = CFrame.new(0, -0.25, -0.4) * CFrame.fromOrientation(0, math.rad(180), 0)
@@ -233,7 +248,7 @@ local function SSGFQER_fake_script() -- BOBGUI.BOB
 		end)
 		
 		portalGun.Activated:Connect(function()
-			local range = 100
+			local range = 10000
 			local mousePos2D = uis:GetMouseLocation()
 			local mouse3DRay = camera:ViewportPointToRay(mousePos2D.X, mousePos2D.Y, 1)
 			
@@ -314,10 +329,23 @@ local function SSGFQER_fake_script() -- BOBGUI.BOB
 								
 								char:PivotTo(portalToTeleport.CFrame)
 							else
-								local t = distance/10
-								local tween = tweenService:Create(char.HumanoidRootPart, TweenInfo.new(t),{CFrame = portalToTeleport.CFrame} )
-								tween:Play()
-								wait(t)
+								--local t = distance/10
+								--local tween = tweenService:Create(char.HumanoidRootPart, TweenInfo.new(t),{CFrame = portalToTeleport.CFrame} )
+								--tween:Play()
+								--wait(t)
+								
+								local offset = portalToTeleport.Position - portal.Position
+								char.HumanoidRootPart.Anchored = true
+								local speed = tonumber(script.Parent.Speed.Text)
+								if speed == nil then
+									speed = 1
+								end
+								
+								for i = 1,distance do
+									char:PivotTo(char:GetPivot() + offset/distance)
+									wait(0.2/speed)
+								end
+								char.HumanoidRootPart.Anchored = false
 							end
 							
 							wait(0.55)
@@ -353,7 +381,7 @@ local function SSGFQER_fake_script() -- BOBGUI.BOB
 		repeat
 			wait(0.1)
 		until char ~= nil
-		
+	
 		seller.CFrame = char:GetPivot() * CFrame.new(0,0,-5) * CFrame.fromOrientation(0,math.rad(180),0)
 	
 	
@@ -364,8 +392,8 @@ local function SSGFQER_fake_script() -- BOBGUI.BOB
 	
 	Seller()
 end
-coroutine.wrap(SSGFQER_fake_script)()
-local function ITAFNDU_fake_script() -- TurboButton.LocalScript 
+coroutine.wrap(MHBXCIB_fake_script)()
+local function INSYUEE_fake_script() -- TurboButton.LocalScript 
 	local script = Instance.new('LocalScript', TurboButton)
 
 	script.Parent.MouseButton1Click:Connect(function()
@@ -380,8 +408,8 @@ local function ITAFNDU_fake_script() -- TurboButton.LocalScript
 		end
 	end)
 end
-coroutine.wrap(ITAFNDU_fake_script)()
-local function MUUK_fake_script() -- Figure.LocalScript 
+coroutine.wrap(INSYUEE_fake_script)()
+local function VLOMJAW_fake_script() -- Figure.LocalScript 
 	local script = Instance.new('LocalScript', Figure)
 
 	script.Parent.MouseButton1Click:Connect(function()
@@ -407,4 +435,4 @@ local function MUUK_fake_script() -- Figure.LocalScript
 		end
 	end)
 end
-coroutine.wrap(MUUK_fake_script)()
+coroutine.wrap(VLOMJAW_fake_script)()
